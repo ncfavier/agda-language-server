@@ -1,6 +1,6 @@
 # modified from https://github.com/simonmichael/hledger/blob/master/.github/workflows/linux.yml
 
-name: CI (Linux)
+name: linuxbuild
 
 on: [push, pull_request]
 
@@ -89,6 +89,14 @@ jobs:
         cd .. 
         mv zip/als-ubuntu.zip .
 
+
+    - name: 📦 Archive built artifacts 
+      uses: actions/upload-artifact@v2
+      with:
+        name: linux
+        path: |
+          zip/data/
+          zip/als
 
     - name: 🚢 Release Artifacts
       uses: softprops/action-gh-release@v1

@@ -1,0 +1,22 @@
+# modified from https://github.com/simonmichael/hledger/blob/master/.github/workflows/linux.yml
+
+name: linuxtest
+
+on: 
+  workflow_run:
+    workflows: [linuxbuild]
+    types: 
+      - completed
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+    - name: ⏬ Download built artifact
+      uses: actions/download-artifact@v2
+      with:
+        name: linux
+      
+    - name: run
+      run: |
+        ls 
