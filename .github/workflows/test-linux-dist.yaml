@@ -1,22 +1,22 @@
-# modified from https://github.com/simonmichael/hledger/blob/master/.github/workflows/linux.yml
-
 name: linuxtest
 
-on: 
+on:
   workflow_run:
-    workflows: [linuxbuild]
-    types: 
+    workflows:
+      - linuxbuild
+    types:
       - completed
 
 jobs:
   test:
+    name: Testing the built binary
     runs-on: ubuntu-latest
     steps:
-    - name: ⏬ Download built artifact
-      uses: actions/download-artifact@v2
-      with:
-        name: linux
-      
-    - name: run
-      run: |
-        ls 
+      - name: ⏬ Download built artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: linux
+
+      - name: run
+        run: |
+          ls
