@@ -32,7 +32,7 @@ import Agda.Utils.Impossible (__IMPOSSIBLE__)
 import Agda.Utils.Maybe (catMaybes)
 import Agda.Utils.Null (empty)
 import Agda.Utils.Pretty hiding (render)
-import Agda.Utils.RangeMap ( IsBasicRangeMap(toList) ) 
+import Agda.Utils.RangeMap ( IsBasicRangeMap(toList) )
 import Agda.Utils.String (delimiter)
 import Agda.Utils.Time (CPUTime)
 import Agda.VersionCommit (versionWithCommitInfo)
@@ -129,7 +129,7 @@ fromHighlightingInfo h remove method modFile =
     indirect = liftIO $ writeToTempFile (BS8.unpack (JSON.encode info))
 
 fromDisplayInfo :: DisplayInfo -> TCM IR.DisplayInfo
-fromDisplayInfo = \case 
+fromDisplayInfo = \case
   Info_CompilationOk _ ws -> do
     -- filter
     let filteredWarnings = filterTCWarnings (tcWarnings ws)
@@ -278,7 +278,7 @@ fromDisplayInfo = \case
 
 lispifyGoalSpecificDisplayInfo :: InteractionId -> GoalDisplayInfo -> TCM IR.DisplayInfo
 lispifyGoalSpecificDisplayInfo ii kind = localTCState $
-  B.withInteractionId ii $
+  withInteractionId ii $
     case kind of
       Goal_HelperFunction helperType -> do
         doc <- inTopContext $ prettyATop helperType
@@ -576,12 +576,12 @@ renderResponseContext ii (ResponseContextEntry n x (Arg ai expr) letv nis) = wit
     -- raw
     rawExpr <- prettyATop expr
     let rawType = show $ align 10 [(rawAttribute ++ rawCtxName, ":" <+> rawExpr <+> parenSep extras)]
-    -- rendered  
+    -- rendered
     renderedExpr <- renderATop expr
     let renderedType = (renderedCtxName <> renderedAttribute) Render.<+> ":" Render.<+> renderedExpr Render.<+> parenSep2 extras2
       -- (Render.fsep $ Render.punctuate "," extras)
 
-    -- result 
+    -- result
     let typeItem = Unlabeled renderedType (Just rawType) Nothing
 
     valueItem <- case letv of
